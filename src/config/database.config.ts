@@ -7,10 +7,10 @@ const DatabaseConfig = (): TypeOrmModuleOptions => ({
   database: process.env.DB_NAME || '',
   username: process.env.DB_USERNAME || '',
   password: process.env.DB_PASSWORD || '',
-  entities: ['dist/**/*.entity.{ts,js}'],
+  entities: [`${__dirname}/**/*.entity{.ts,.js}`],
   synchronize: false,
   migrationsTableName: 'migrations',
-  migrations: ['dist/src/migrations/*.{ts,js}'],
+  migrations: [`${__dirname}/../migrations/**/*{.ts,.js}`],
   cli: {
     migrationsDir: 'src/migrations',
   },
