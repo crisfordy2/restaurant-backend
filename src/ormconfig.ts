@@ -1,6 +1,6 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { ConnectionOptions } from 'typeorm';
 
-const DatabaseConfig = (): TypeOrmModuleOptions => ({
+const config: ConnectionOptions = {
   type: 'mysql',
   host: process.env.DB_HOST || 'localhost',
   port: parseInt(process.env.DB_PORT) || 3306,
@@ -14,6 +14,6 @@ const DatabaseConfig = (): TypeOrmModuleOptions => ({
   cli: {
     migrationsDir: 'src/migrations',
   },
-});
+}
 
-export default DatabaseConfig;
+export = config;

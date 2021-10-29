@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConnectionOptions } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserTypesModule } from './modules/user-types/user-types.module';
 import { UsersModule } from './modules/users/users.module';
+
 import appConfig from './config/app.config';
 
 @Module({
@@ -14,12 +14,20 @@ import appConfig from './config/app.config';
       isGlobal: false,
       load: [appConfig],
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => {
-        return configService.get<ConnectionOptions>('database');
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOST || 'localhost',
+      port: parseInt(process.env.DB_PORT) || 3306,
+      database: process.env.DB_NAME || '',
+      username: process.env.DB_USERNAME || '',
+      password: process.env.DB_PASSWORD || '',
+      entities: [`${__dirname}/**/*.entity{.ts,.js}`],
+      synchronize: false,
+      migrationsTableName: 'migrations',
+      migrations: [`${__dirname}/../migrations/**/*{.ts,.js}`],
+      cli: {
+        migrationsDir: 'src/migrations',
       },
-      inject: [ConfigService],
     }),
     UserTypesModule,
     UsersModule,
