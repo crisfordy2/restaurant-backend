@@ -22,7 +22,7 @@ export class User {
   phonenumber: string;
 
   @Column({ type: 'varchar', length: 50 })
-  indentification: string;
+  identification: string;
 
   @Column({ type: 'bool', default: true })
   is_active: boolean;

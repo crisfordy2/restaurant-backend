@@ -1,6 +1,10 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
+
+import { UserTypesService } from '~modules/user-types/user-types.service';
+import { Response } from '~core/interceptors/response.interceptor';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -9,25 +13,81 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
+    private userTypesService: UserTypesService,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto): Promise<Response<User>> {
+    try {
+      const { data: userType } = await this.userTypesService.findOne(
+        createUserDto.user_type_id,
+      );
+      const _user = this.usersRepository.create(createUserDto);
+      _user.user_type = userType;
+
+      const user = await this.usersRepository.save(_user);
+      return {
+        data: user,
+        message: 'User created',
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(): Promise<Response<User[]>> {
+    const users = await this.usersRepository.find({
+      where: { is_active: true },
+    });
+    return {
+      data: users,
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number): Promise<Response<User>> {
+    const user = await this.usersRepository.findOne(id, {
+      where: { is_active: true },
+    });
+    if (!user) {
+      throw new NotFoundException(`User ${id} not found`);
+    }
+    return {
+      data: user,
+    };
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<Response<User>> {
+    try {
+      const { data: user } = await this.findOne(id);
+      const _user = await this.usersRepository.save({
+        ...user,
+        ...updateUserDto,
+      });
+      return {
+        data: _user,
+        message: 'User updated',
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number): Promise<Response<User>> {
+    try {
+      const { data: user } = await this.findOne(id);
+      const _user = await this.usersRepository.save({
+        ...user,
+        is_active: false,
+      });
+
+      return {
+        data: _user,
+        message: 'User deleted',
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 }

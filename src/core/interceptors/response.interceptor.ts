@@ -7,14 +7,14 @@ import {
 import { map, Observable } from 'rxjs';
 
 export interface Response<T> {
-  status_code: number;
-  message: string;
+  status_code?: number;
+  message?: string;
   data: T;
 }
 
 @Injectable()
 export class ResponseInterceptor<T>
-  implements NestInterceptor<Text, Response<T>>
+  implements NestInterceptor<T, Response<T>>
 {
   intercept(
     context: ExecutionContext,
@@ -23,8 +23,8 @@ export class ResponseInterceptor<T>
     return next.handle().pipe(
       map((data) => ({
         status_code: context.switchToHttp().getResponse().status_code,
-        message: data.message,
-        data: data.result,
+        message: data.message || '',
+        data: data.data,
       })),
     );
   }
