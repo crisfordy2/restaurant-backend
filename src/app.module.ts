@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { UserTypesModule } from './modules/user-types/user-types.module';
 import { UsersModule } from './modules/users/users.module';
 
-import appConfig from './config/app.config';
+import appConfig from './core/config/app.config';
 
 @Module({
   imports: [
