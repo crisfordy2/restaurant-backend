@@ -90,4 +90,12 @@ export class UsersService {
       throw error;
     }
   }
+
+  async getByPhoneNumber(phonenumber: string) {
+    const user = this.usersRepository.findOne({ phonenumber });
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
+  }
 }
