@@ -10,6 +10,7 @@ import { UsersModule } from '~modules/users/users.module';
 import { OrderTypesModule } from './modules/order-types/order-types.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { OrderStatusesModule } from './modules/order-statuses/order-statuses.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 import appConfig from '~core/config/app.config';
 
@@ -39,6 +40,7 @@ import appConfig from '~core/config/app.config';
     OrderTypesModule,
     OrdersModule,
     OrderStatusesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
