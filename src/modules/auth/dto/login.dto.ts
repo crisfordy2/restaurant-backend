@@ -1,8 +1,8 @@
-import { IsEmail } from 'class-validator';
+import { IsEmail, IsPhoneNumber } from 'class-validator';
 
 export class LoginDTO {
-  @IsEmail()
-  email: string;
+  @IsPhoneNumber()
+  phonenumber: string;
 
   password: string;
 }
