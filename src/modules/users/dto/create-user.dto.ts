@@ -4,6 +4,7 @@ import {
   IsNumberString,
   IsPhoneNumber,
   Length,
+  MinLength,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -24,6 +25,10 @@ export class CreateUserDto {
   @IsNumberString()
   @Length(50, 50)
   identification: string;
+
+  @IsNotEmpty()
+  @MinLength(8)
+  password: string;
 
   @IsInt()
   user_type_id: number;

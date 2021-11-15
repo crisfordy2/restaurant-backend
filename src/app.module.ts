@@ -14,6 +14,7 @@ import { ReservationsModule } from './modules/reservations/reservations.module';
 import { ReservationTablesModule } from './modules/reservation-tables/reservation-tables.module';
 import { TablesModule } from './modules/tables/tables.module';
 import { ReservationStatusIdModule } from './modules/reservation-status-id/reservation-status-id.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 import appConfig from '~core/config/app.config';
 
@@ -47,6 +48,7 @@ import appConfig from '~core/config/app.config';
     ReservationTablesModule,
     TablesModule,
     ReservationStatusIdModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
