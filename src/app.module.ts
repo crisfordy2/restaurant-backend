@@ -10,6 +10,10 @@ import { UsersModule } from '~modules/users/users.module';
 import { OrderTypesModule } from './modules/order-types/order-types.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { OrderStatusesModule } from './modules/order-statuses/order-statuses.module';
+import { ReservationsModule } from './modules/reservations/reservations.module';
+import { ReservationTablesModule } from './modules/reservation-tables/reservation-tables.module';
+import { TablesModule } from './modules/tables/tables.module';
+import { ReservationStatusIdModule } from './modules/reservation-status-id/reservation-status-id.module';
 
 import appConfig from '~core/config/app.config';
 
@@ -39,6 +43,10 @@ import appConfig from '~core/config/app.config';
     OrderTypesModule,
     OrdersModule,
     OrderStatusesModule,
+    ReservationsModule,
+    ReservationTablesModule,
+    TablesModule,
+    ReservationStatusIdModule,
   ],
   controllers: [AppController],
   providers: [AppService],

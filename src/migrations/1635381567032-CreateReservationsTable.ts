@@ -27,6 +27,10 @@ export class CreateReservationsTable1635381567032
             name: 'reservation_date',
             type: 'date',
           },
+          {
+            name: 'hour_date',
+            type: 'bigint'
+          }
         ],
         foreignKeys: [
           {
@@ -37,8 +41,8 @@ export class CreateReservationsTable1635381567032
           {
             columnNames: ['reservation_status_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'reservations',
-          },
+            referencedTableName: 'reservation_statuses',
+          },  
         ],
       }),
     );

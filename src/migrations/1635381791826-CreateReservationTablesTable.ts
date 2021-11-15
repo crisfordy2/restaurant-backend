@@ -9,14 +9,19 @@ export class CreateReservationTablesTable1635381791826
         name: 'reservation_tables',
         columns: [
           {
-            name: 'reservation_id',
+            name: 'id',
             type: 'bigint',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
+          },
+          {
+            name: 'reservation_id',
+            type: 'bigint',
           },
           {
             name: 'table_id',
             type: 'bigint',
-            isPrimary: true,
           },
         ],
         foreignKeys: [

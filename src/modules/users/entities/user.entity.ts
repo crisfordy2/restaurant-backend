@@ -4,8 +4,10 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  OneToMany
 } from 'typeorm';
 import { UserType } from 'src/modules/user-types/entities/user-type.entity';
+import {Reservation} from 'src/modules/reservations/entities/reservation.entity';
 
 @Entity('users')
 export class User {
@@ -30,4 +32,7 @@ export class User {
   @ManyToOne(() => UserType, (user_type) => user_type.users)
   @JoinColumn({ name: 'user_type_id' })
   user_type: UserType;
+
+  @OneToMany(() => Reservation, (reservation) => reservation.customer)
+  reservations: Reservation[];
 }

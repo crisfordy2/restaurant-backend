@@ -18,8 +18,7 @@ export class CreateReservationStatusesTable1635381557844
           {
             name: 'description',
             type: 'varchar',
-            length: '50',
-            isUnique: true,
+            length: '50',  
           },
           {
             name: 'is_active',

@@ -18,9 +18,11 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<Response<User>> {
     try {
+      console.log("data", createUserDto);
       const { data: userType } = await this.userTypesService.findOne(
         createUserDto.user_type_id,
       );
+      console.log("usertype", userType);
       const _user = this.usersRepository.create(createUserDto);
       _user.user_type = userType;
 
